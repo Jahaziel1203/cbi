@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head th:replace="layout/layout :: head"></head>
+
+	<body>
+		<header th:replace="layout/layout :: header"></header>
+	
+		<div class="container py-4">
+			<div class="card bg-light">
+				<div class="card-header" th:text="${title}"></div>
+				
+				<div class="card-body">
+					<h4 class="card-title"><a th:href="@{/user/newUser}" class="btn btn-primary btn-sm">Nuevo usuario</a></h4>
+				
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Nombre</th>
+								<th>Apellido paterno</th>
+								<th>Apellido materno</th>
+								<th>Nombre de usuario</th>
+                                <th>Rol</th>
+								<th>Acciones</th>
+							</tr>
+						</thead>
+			
+						<tbody>
+							<tr th:each="user: ${users}">
+								<td th:text="${user.id}"></td>
+								<td th:text="${user.name}"></td>
+								<td th:text="${user.lastname}"></td>
+								<td th:text="${user.mother_lastname}"></td>
+                                <th th:text="${user.authentication.username}"></th>
+								<td th:text="${user.authentication.rol.name}"></td>
+								<td>
+									<a class="btn btn-primary btn-sm" th:href="@{/user/editUser/} + ${user.id}" th:text="Editar"></a>
+                                    <a class="btn btn-secondary btn-sm ms-2" th:href="@{/user/user/} + ${user.id}" th:text="Visualizar"></a>
+									<a class="btn btn-danger btn-sm ms-2" th:href="@{/user/delete/} + ${user.id}" th:text="Eliminar"
+										onclick="return confirm('¿Estas seguro que quieres eliminar?');"></a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		
+		<footer th:replace="layout/layout :: footer"></footer>
+	</body>
+</html>

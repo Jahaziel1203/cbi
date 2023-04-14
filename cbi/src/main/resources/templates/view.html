@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="layout/layout :: head"></head>
+	
+	<body>
+		<header th:replace="layout/layout :: header"></header>
+		
+		<div class="container py-4">
+			<div class="card bg-light">
+				<div class="card-header" th:text="${title}"></div>
+				
+				<div class="card-body">
+					<ul class="list-group">
+						<li class="list-group-item" th:text="'Nombre: ' + ${user.name}">
+						<li class="list-group-item" th:text="'Apellido paterno: ' + ${user.lastname}">
+						<li class="list-group-item" th:text="'Apellido materno: ' + ${user.mother_lastname}">
+						<li class="list-group-item" th:text="'Nombre de usuario: ' + ${user.authentication.username}">
+                        <li class="list-group-item" th:text="'Rol: ' + ${user.authentication.rol.name}">
+                        <li class="list-group-item" th:text="'Descripción del puesto: ' + ${user.authentication.rol.description}">
+					</ul>
+				</div>
+
+                <h4 class="card-title"><a th:href="@{/user/users}" class="btn btn-primary btn-sm ms-3">Regresar</a></h4>
+			</div>
+		</div>
+		
+		<footer th:replace="layout/layout :: footer"></footer>
+	</body>
+</html>

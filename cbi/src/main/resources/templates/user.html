@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container py-4">
+		<div class="card bg-light">
+			<div class="card-header" th:text="${title}"></div>
+				
+			<div class="card-body">
+				<div th:object="${user}" th:remove="tag">
+					<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+						<li th:each="err : ${#fields.errors('*')}" th:utext="${err}" class="ms-4"></li>
+					</ul>
+				</div>
+		
+				<form th:action="@{/user/newUser}" th:object="${user}" method="post">
+					<div class="row mb-3">
+						<label for="name" class="col-sm-2 col-form-label">Nombre:</label>
+						<div class="col-sm-4">
+							<input type="text" id="name" th:field="*{name}" class="form-control"
+								th:errorclass="'form-control border-danger-subtle bg-danger-subtle'" />
+							<small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="form-text text-danger"></small>
+						</div>
+					</div>
+		
+					<div class="row mb-3">
+						<label for="lastname" class="col-sm-2 col-form-label">Apellido paterno:</label>
+						<div class="col-sm-4">
+							<input type="text" id="lastname" th:field="*{lastname}" class="form-control"
+								th:errorclass="'form-control border-danger-subtle bg-danger-subtle'" />
+							<small th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" class="form-text text-danger"></small>
+						</div>
+					</div>
+
+                    <div class="row mb-3">
+						<label for="mother_lastname" class="col-sm-2 col-form-label">Apellido materno:</label>
+						<div class="col-sm-4">
+							<input type="text" id="mother_lastname" th:field="*{mother_lastname}" class="form-control"
+								th:errorclass="'form-control border-danger-subtle bg-danger-subtle'" />
+							<small th:if="${#fields.hasErrors('mother_lastname')}" th:errors="*{mother_lastname}" 
+                                class="form-text text-danger"></small>
+						</div>
+					</div>
+
+                    <div class="row mb-3">
+						<label for="username" class="col-sm-2 col-form-label">Nombre de usuario:</label>
+						<div class="col-sm-4">
+							<input type="text" id="username" th:field="*{authentication.username}" class="form-control"
+								th:errorclass="'form-control border-danger-subtle bg-danger-subtle'" />
+							<small th:if="${#fields.hasErrors('authentication.username')}" th:errors="*{authentication.username}" 
+                                class="form-text text-danger"></small>
+						</div>
+					</div>
+
+                    <div class="row mb-3">
+						<label for="password" class="col-sm-2 col-form-label">Contraseña:</label>
+						<div class="col-sm-4">
+							<input type="text" id="password" th:field="*{authentication.password}" class="form-control"
+								th:errorclass="'form-control border-danger-subtle bg-danger-subtle'" />
+							<small th:if="${#fields.hasErrors('authentication.password')}" th:errors="*{authentication.password}" 
+                                class="form-text text-danger"></small>
+						</div>
+					</div>
+
+                    <div class="row mb-3">
+						<label for="rol" class="col-sm-2 col-form-label">Rol:</label>
+						<div class="col-sm-4">
+                            <select th:field="*{authentication.rol}">
+                                <option th:each="rol : ${roles}" th:text="${rol.name}" th:value="${{rol}}">
+                            </select>
+						</div>
+					</div>
+		
+					<div class="mb-3">
+						<input type="submit" value="Guardar usuario" class="btn btn-primary" />
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
